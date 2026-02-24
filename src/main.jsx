@@ -5,10 +5,20 @@ import { store } from '@/app/store'
 import App from './App.jsx'
 import './index.css'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>
-)
+const mountApp = () => {
+  const rootEl = document.getElementById('root')
+  if (!rootEl) return
+  createRoot(rootEl).render(
+    <StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StrictMode>
+  )
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', mountApp)
+} else {
+  mountApp()
+}
